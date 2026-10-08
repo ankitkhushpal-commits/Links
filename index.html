@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Choose a website</title>
+<style>
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;
+ background:linear-gradient(135deg,#4f46e5,#06b6d4);background-size:200% 200%;animation:flow 12s ease infinite;
+ display:flex;align-items:center;justify-content:center;padding:max(1.2rem,env(safe-area-inset-top)) max(1.2rem,env(safe-area-inset-right)) max(1.2rem,env(safe-area-inset-bottom)) max(1.2rem,env(safe-area-inset-left));min-height:100vh}
+@keyframes flow{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.wrap{width:100%;max-width:420px;text-align:center}
+h1{margin:0 0 .4rem;font-size:1.7rem}
+p.s{margin:0 0 1.6rem;opacity:.9}
+a.card{display:flex;align-items:center;gap:1rem;text-align:left;margin-bottom:1rem;padding:1.1rem 1.2rem;border-radius:18px;color:#fff;text-decoration:none;
+ background:rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);box-shadow:0 14px 40px rgba(0,0,0,.2);transition:transform .15s}
+a.card:hover{transform:translateY(-3px)}
+.n{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;color:#4338ca;font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center}
+.t{font-weight:700;font-size:1.1rem}
+.h{font-size:.85rem;opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:230px}
+.go{margin-left:auto;font-size:1.4rem}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh;overflow-x:hidden}
+h1,p,.t,.h,.dest{overflow-wrap:anywhere}
+@media(max-width:360px){.card{padding:.9rem}}
+@media(min-width:900px){h1{font-size:2rem}}
+@media(max-height:480px){body{align-items:flex-start}.card{padding:.8rem 1rem}.spinner{width:42px;height:42px;margin-bottom:.8rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.card>span:nth-child(2){min-width:0;flex:1}.h{max-width:100%}@media(min-width:700px){.wrap{max-width:520px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔗 Choose a website</h1>
+  <p class="s">Tap one to open it</p>
+  <a class="card" href="site1.html"><span class="n">1</span><span><div class="t">Production ERP</div><div class="h" id="h1">&nbsp;</div></span><span class="go">›</span></a>
+  <a class="card" href="site2.html"><span class="n">2</span><span><div class="t">HR Portal</div><div class="h" id="h2">&nbsp;</div></span><span class="go">›</span></a>
+</div>
+<script>
+fetch("link.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(d=>{
+  ["1","2"].forEach(i=>{try{document.getElementById("h"+i).textContent=new URL(d[i]).hostname}catch(e){}});
+}).catch(()=>{});
+</script>
+</body>
+</html>
