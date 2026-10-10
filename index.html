@@ -1,48 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d1c">
 <title>Choose a website</title>
 <style>
+:root{--bg:#0a0d1c;--t:#f4f6ff;--m:#9aa3c7;--line:rgba(255,255,255,.13);--g1:#7c5cff;--g2:#22d3ee;--g3:#f472b6;--ok:#34d399;--err:#fb7185}
 *{box-sizing:border-box}
-html,body{min-height:100%;margin:0}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;
- background:linear-gradient(135deg,#4f46e5,#06b6d4);background-size:200% 200%;animation:flow 12s ease infinite;
- display:flex;align-items:center;justify-content:center;padding:max(1.2rem,env(safe-area-inset-top)) max(1.2rem,env(safe-area-inset-right)) max(1.2rem,env(safe-area-inset-bottom)) max(1.2rem,env(safe-area-inset-left));min-height:100vh}
-@keyframes flow{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
-.wrap{width:100%;max-width:420px;text-align:center}
-h1{margin:0 0 .4rem;font-size:1.7rem}
-p.s{margin:0 0 1.6rem;opacity:.9}
-a.card{display:flex;align-items:center;gap:1rem;text-align:left;margin-bottom:1rem;padding:1.1rem 1.2rem;border-radius:18px;color:#fff;text-decoration:none;
- background:rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);box-shadow:0 14px 40px rgba(0,0,0,.2);transition:transform .15s}
-a.card:hover{transform:translateY(-3px)}
-.n{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;color:#4338ca;font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center}
-.t{font-weight:700;font-size:1.1rem}
-.h{font-size:.85rem;opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:230px}
-.go{margin-left:auto;font-size:1.4rem}
-
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{min-height:100vh;min-height:100dvh;overflow-x:hidden}
-h1,p,.t,.h,.dest{overflow-wrap:anywhere}
-@media(max-width:360px){.card{padding:.9rem}}
-@media(min-width:900px){h1{font-size:2rem}}
-@media(max-height:480px){body{align-items:flex-start}.card{padding:.8rem 1rem}.spinner{width:42px;height:42px;margin-bottom:.8rem}}
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--t);overflow-x:hidden;
+ font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;
+ padding:max(1.2rem,env(safe-area-inset-top)) max(1.2rem,env(safe-area-inset-right)) max(1.2rem,env(safe-area-inset-bottom)) max(1.2rem,env(safe-area-inset-left))}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(circle at 50% 0,#151a3a,var(--bg) 60%)}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.42;animation:drift 20s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:var(--g1);top:-20vmax;left:-15vmax}
+.bg i:nth-child(2){background:var(--g2);bottom:-25vmax;right:-15vmax;animation-delay:-7s}
+.bg i:nth-child(3){background:var(--g3);top:30%;left:45%;width:35vmax;height:35vmax;opacity:.22;animation-delay:-13s}
+@keyframes drift{to{transform:translate(6vmax,-5vmax) scale(1.15)}}
+.glass{background:rgba(255,255,255,.06);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.gt{background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,p,.pill,.host,.full{overflow-wrap:anywhere}
+.num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;font-weight:800;font-size:1.2rem;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 24px rgba(124,92,255,.45)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:46px;padding:.7rem 1.4rem;border-radius:14px;font-weight:700;color:#fff;text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-size:1rem;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 10px 30px rgba(124,92,255,.4);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.card>span:nth-child(2){min-width:0;flex:1}.h{max-width:100%}@media(min-width:700px){.wrap{max-width:520px}}
-</style>
-</head>
-<body>
+
+body{display:flex;align-items:center;justify-content:center}
+.wrap{width:100%;max-width:520px}
+h1{margin:0;text-align:center;font-size:clamp(1.8rem,7vw,2.6rem);letter-spacing:-.02em}
+.s{text-align:center;color:var(--m);margin:.4rem 0 1.8rem}
+a.card{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;padding:1.1rem 1.2rem;color:var(--t);text-decoration:none;transition:transform .2s,border-color .2s}
+a.card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.7)}
+.txt{min-width:0;flex:1}
+.t{font-weight:700;font-size:1.1rem}
+.h{color:var(--m);font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.go{font-size:1.5rem;color:var(--g2)}
+</style></head><body>
+<div class="bg"><i></i><i></i><i></i></div>
 <div class="wrap">
-  <h1>🔗 Choose a website</h1>
+  <h1 class="gt">Choose a website</h1>
   <p class="s">Tap one to open it</p>
-  <a class="card" href="site1.html"><span class="n">1</span><span><div class="t">Production ERP</div><div class="h" id="h1">&nbsp;</div></span><span class="go">›</span></a>
-  <a class="card" href="site2.html"><span class="n">2</span><span><div class="t">HR Portal</div><div class="h" id="h2">&nbsp;</div></span><span class="go">›</span></a>
+  <a class="glass card" href="site1.html"><span class="num">1</span><span class="txt"><div class="t">Production ERP</div><div class="h" id="h1">&nbsp;</div></span><span class="go">→</span></a>
+  <a class="glass card" href="site2.html"><span class="num">2</span><span class="txt"><div class="t">HR Protal</div><div class="h" id="h2">&nbsp;</div></span><span class="go">→</span></a>
 </div>
 <script>
 fetch("link.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(d=>{
   ["1","2"].forEach(i=>{try{document.getElementById("h"+i).textContent=new URL(d[i]).hostname}catch(e){}});
 }).catch(()=>{});
-</script>
-</body>
-</html>
+</script></body></html>
