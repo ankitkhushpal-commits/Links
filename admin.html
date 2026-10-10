@@ -1,126 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d1c">
 <title>Link Manager</title>
 <style>
-:root{--bg:#f3f4f8;--card:#fff;--text:#1f2340;--muted:#6b7089;--line:#e3e5ef;--accent:#4f46e5;--accent2:#06b6d4;--ok:#16a34a;--err:#dc2626;--chip:#eef0ff}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1120;--card:#1a1d33;--text:#eceefb;--muted:#9aa0c0;--line:#2b2f4d;--chip:#262a4a}}
+:root{--bg:#0a0d1c;--t:#f4f6ff;--m:#9aa3c7;--line:rgba(255,255,255,.13);--g1:#7c5cff;--g2:#22d3ee;--g3:#f472b6;--ok:#34d399;--err:#fb7185}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text)}
-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:max(2.2rem,calc(env(safe-area-inset-top) + 1rem)) 1rem 4.5rem;text-align:center}
-header h1{margin:0;font-size:clamp(1.4rem,5vw,2.1rem)}
-header p{margin:.4rem 0 0;opacity:.9}
-main{max-width:980px;margin:-3rem auto 2rem;padding:0 max(1rem,env(safe-area-inset-right)) 0 max(1rem,env(safe-area-inset-left))}
-.card{background:var(--card);border-radius:18px;padding:1.4rem;margin-bottom:1rem;box-shadow:0 8px 30px rgba(20,20,60,.12);border:1px solid var(--line)}
-.card h2{margin:0 0 1rem;font-size:1.1rem;display:flex;align-items:center;gap:.6rem}
-.badge{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.95rem}
-.lbl{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:1rem 0 .4rem}
-.current{display:flex;align-items:center;gap:.7rem;padding:.7rem 1rem;border-radius:12px;background:var(--chip);word-break:break-all;font-size:.92rem}
-.dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(22,163,74,.2)}
-.current a{color:var(--accent);text-decoration:none;font-weight:600}
-.share{display:flex;gap:.5rem}
-.share input{flex:1;min-width:0;background:var(--chip)}
-input[type=text],input[type=password],input[type=url]{width:100%;padding:.8rem .9rem;font-size:1rem;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--text);outline:none}
-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,.2)}
-button{font-family:inherit;cursor:pointer}
-.copy{flex:none;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-weight:700}
-.copy:hover{background:var(--accent);color:#fff}
-.save{width:100%;margin-top:.8rem;padding:.9rem;font-size:1rem;font-weight:700;color:#fff;border:0;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 6px 18px rgba(79,70,229,.3)}
-.save:disabled{opacity:.6;cursor:wait}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
-.chip{padding:.35rem .7rem;border-radius:999px;background:var(--chip);font-size:.8rem;border:0;color:var(--text);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chip:hover{outline:2px solid var(--accent)}
-details summary{cursor:pointer;font-weight:700;list-style:none}
-details summary::before{content:"⚙️ "}
-.row{display:flex;gap:.6rem}.row>*{flex:1}
-label.f{display:block;margin:1rem 0 .35rem;font-weight:600;font-size:.9rem}
-.pw{position:relative}
-.pw button{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);padding:.4rem .6rem;background:none;border:0;color:var(--muted);font-size:.85rem}
-.hint{font-size:.82rem;color:var(--muted);margin-top:.4rem;line-height:1.4}
-.check{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font-size:.9rem}
-.check input{width:auto}
-#toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,120px);padding:.8rem 1.3rem;border-radius:12px;color:#fff;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.3);transition:transform .3s;max-width:90%;text-align:center;z-index:9}
-#toast.show{transform:translate(-50%,0)}
-#toast.ok{background:var(--ok)}#toast.err{background:var(--err)}
-.all textarea{width:100%;min-height:110px;padding:.8rem .9rem;font:inherit;font-size:.92rem;border-radius:12px;border:1.5px solid var(--line);background:var(--chip);color:var(--text);resize:vertical;outline:none}
-.sbtns{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.8rem}
-.sb{padding:.8rem;border:0;border-radius:12px;color:#fff;font-weight:700;font-size:.95rem}
-.sb.wa{background:#25d366}.sb.sm{background:#0ea5e9}.sb.em{background:#f59e0b}.sb.cp{background:#6366f1}
-.sb.nat{grid-column:1/-1;background:linear-gradient(135deg,var(--accent),var(--accent2))}
-
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{overflow-x:hidden}
-main:not(#sites){max-width:660px}
-#sites{display:grid;grid-template-columns:1fr;gap:1rem}
-#sites .card{margin-bottom:0;min-width:0}
-@media(min-width:760px){#sites{grid-template-columns:1fr 1fr}.card{padding:1.6rem}}
-@media(min-width:1100px){body{font-size:17px}}
-.card,.current,.chip,.share input{overflow-wrap:anywhere}
-button,input,.chip{min-height:44px}
-input[type=checkbox]{min-height:0;width:20px;height:20px}
-.sbtns{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
-@media(max-width:440px){.row{flex-direction:column;gap:0}.share{flex-direction:column}.copy{padding:.7rem}.card{padding:1.1rem;border-radius:14px}}
-@media(max-width:340px){.sbtns{grid-template-columns:1fr}}
-#toast{bottom:max(1.5rem,calc(env(safe-area-inset-bottom) + .8rem))}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
-</head>
-<body>
-<header>
-  <h1>🔗 Link Manager</h1>
-  <p>Two share links, two destinations</p>
-</header>
-<main id="sites"></main>
-<main style="margin-top:0;margin-bottom:0">
-  <section class="card all">
-    <h2><span class="badge">📤</span>Share all links</h2>
-    <textarea id="allmsg" readonly></textarea>
-    <div class="sbtns">
-      <button class="sb nat" id="nat">📲 Share (choose any app)</button>
-      <button class="sb wa" id="wa">WhatsApp</button>
-      <button class="sb sm" id="sms">SMS</button>
-      <button class="sb em" id="mail">Email</button>
-      <button class="sb cp" id="cpall">Copy all</button>
-    </div>
-  </section>
-</main>
-<main style="margin-top:0">
-  <section class="card">
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--t);overflow-x:hidden;
+ font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;
+ padding:max(1.2rem,env(safe-area-inset-top)) max(1.2rem,env(safe-area-inset-right)) max(1.2rem,env(safe-area-inset-bottom)) max(1.2rem,env(safe-area-inset-left))}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(circle at 50% 0,#151a3a,var(--bg) 60%)}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.42;animation:drift 20s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:var(--g1);top:-20vmax;left:-15vmax}
+.bg i:nth-child(2){background:var(--g2);bottom:-25vmax;right:-15vmax;animation-delay:-7s}
+.bg i:nth-child(3){background:var(--g3);top:30%;left:45%;width:35vmax;height:35vmax;opacity:.22;animation-delay:-13s}
+@keyframes drift{to{transform:translate(6vmax,-5vmax) scale(1.15)}}
+.glass{background:rgba(255,255,255,.06);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.gt{background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,p,.pill,.host,.full{overflow-wrap:anywhere}
+.num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;font-weight:800;font-size:1.2rem;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 24px rgba(124,92,255,.45)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:46px;padding:.7rem 1.4rem;border-radius:14px;font-weight:700;color:#fff;text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-size:1rem;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 10px 30px rgba(124,92,255,.4);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.page{max-width:1000px;margin:0 auto}
+header{text-align:center;padding:1.6rem 0 1.8rem}
+header h1{margin:0;font-size:clamp(1.9rem,6vw,3rem);letter-spacing:-.02em}
+header p{margin:.4rem 0 0;color:var(--m)}
+#sites{display:grid;grid-template-columns:1fr;gap:1.1rem}
+@media(min-width:780px){#sites{grid-template-columns:1fr 1fr}}
+.card{padding:1.4rem;min-width:0}
+.top{display:flex;align-items:center;gap:.9rem}
+.top .name{font-weight:700;font-size:1.1rem}
+.top .sub{color:var(--m);font-size:.82rem}
+.top .sub code{color:var(--g2)}
+.live{margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .65rem;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.08em;color:var(--ok);background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3)}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.host{margin:1.2rem 0 .1rem;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:800;letter-spacing:-.01em}
+.full{display:block;color:var(--m);font-size:.85rem;text-decoration:none;max-height:2.7em;overflow:hidden}
+.acts{display:flex;gap:.6rem;margin:1rem 0 1.2rem;flex-wrap:wrap}
+.ghost{flex:1;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:.6rem 1rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--t);text-decoration:none;font:600 .92rem inherit;font-family:inherit;cursor:pointer;transition:background .15s}
+.ghost:hover{background:rgba(255,255,255,.12)}
+label.l{display:block;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--m);margin:0 0 .45rem}
+.inwrap{display:flex;gap:.5rem}
+input[type=url],input[type=text],input[type=password]{width:100%;min-width:0;min-height:46px;padding:.7rem .9rem;font-size:1rem;font-family:inherit;color:var(--t);background:rgba(255,255,255,.06);border:1.5px solid var(--line);border-radius:12px;outline:none;transition:border .15s,box-shadow .15s}
+input::placeholder{color:#6b7399}
+input:focus{border-color:var(--g1);box-shadow:0 0 0 3px rgba(124,92,255,.3)}
+.go{flex:none;padding:0 1.3rem}
+.go:disabled{opacity:.6;cursor:wait}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.chip{padding:.3rem .7rem;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--m);font:inherit;font-size:.78rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.chip:hover{color:var(--t);border-color:var(--g2)}
+.conn{margin-top:1.1rem;padding:1.2rem 1.4rem}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;align-items:center;gap:.5rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;color:var(--g2);font-size:1.3rem}
+details[open] summary::after{content:"–"}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1rem}
+@media(max-width:480px){.two{grid-template-columns:1fr}}
+.field{margin-top:.9rem}
+.pw{position:relative}
+.pw button{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--m);font:600 .85rem inherit;font-family:inherit;padding:.5rem;cursor:pointer}
+.hint{color:var(--m);font-size:.82rem;margin:.6rem 0 0}
+.check{display:flex;align-items:center;gap:.5rem;margin-top:.9rem;font-size:.9rem;color:var(--m)}
+.check input{width:18px;height:18px;accent-color:var(--g1)}
+#toast{position:fixed;left:50%;bottom:max(1.4rem,calc(env(safe-area-inset-bottom) + .8rem));transform:translate(-50%,140px);padding:.8rem 1.3rem;border-radius:14px;color:#06210f;font-weight:700;box-shadow:0 14px 40px rgba(0,0,0,.5);transition:transform .3s;max-width:92%;text-align:center;z-index:9}
+#toast.show{transform:translate(-50%,0)}
+#toast.ok{background:var(--ok)}#toast.err{background:var(--err);color:#33060f}
+</style></head><body>
+<div class="bg"><i></i><i></i><i></i></div>
+<div class="page">
+  <header>
+    <h1 class="gt">Link Manager</h1>
+    <p>Change where each share link sends your visitors</p>
+  </header>
+  <main id="sites"></main>
+  <section class="glass conn">
     <details id="conn">
-      <summary>GitHub connection</summary>
-      <div class="row">
-        <div><label class="f" for="owner">Username</label><input id="owner" type="text" placeholder="your-username"></div>
-        <div><label class="f" for="repo">Repository</label><input id="repo" type="text" placeholder="your-repo"></div>
+      <summary>⚙️ GitHub connection</summary>
+      <div class="two">
+        <div><label class="l" for="owner">Username</label><input id="owner" type="text" placeholder="your-username"></div>
+        <div><label class="l" for="repo">Repository</label><input id="repo" type="text" placeholder="your-repo"></div>
       </div>
-      <label class="f" for="token">Access token</label>
-      <div class="pw"><input id="token" type="password" placeholder="github_pat_…" autocomplete="off"><button type="button" id="eye">Show</button></div>
+      <div class="field"><label class="l" for="token">Access token</label>
+        <div class="pw"><input id="token" type="password" placeholder="github_pat_…" autocomplete="off"><button type="button" id="eye">Show</button></div></div>
       <p class="hint">Fine-grained token with <b>Contents: Read and write</b> on this repo only.</p>
       <label class="check"><input type="checkbox" id="remember" checked> Remember on this device</label>
     </details>
   </section>
-</main>
+</div>
 <div id="toast"></div>
-
 <script>
 const $=id=>document.getElementById(id);
 const S={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},del:k=>{try{localStorage.removeItem(k)}catch(e){}}};
 function toast(m,c){const t=$("toast");t.textContent=m;t.className="show "+c;clearTimeout(t._t);t._t=setTimeout(()=>t.className="",3800)}
-const base=location.href.replace(/[^\/]*$/,"").replace(/[?#].*$/,"");
+const base=location.href.replace(/[?#].*$/,"").replace(/[^\/]*$/,"");
 const IDS=["1","2"];
 
-// build the two cards
 IDS.forEach(id=>{
-  const s=document.createElement("section");s.className="card";
-  s.innerHTML=`<h2><span class="badge">${id}</span>Website ${id}</h2>
-  <div class="lbl">Share this link</div>
-  <div class="share"><input type="text" readonly id="share${id}" value="${base}site${id}.html"><button class="copy" data-id="${id}">Copy</button></div>
-  <div class="lbl">Currently opens</div>
-  <div class="current"><span class="dot"></span><span id="cur${id}">Loading…</span></div>
-  <div class="lbl">Change to</div>
-  <input type="url" id="url${id}" placeholder="https://example.com">
-  <button class="save" data-id="${id}" id="save${id}">Save Website ${id}</button>
+  const s=document.createElement("section");s.className="glass card";
+  s.innerHTML=`<div class="top"><span class="num">${id}</span><div><div class="name">Website ${id}</div><div class="sub">Share: <code>site${id}.html</code></div></div><span class="live"><i></i>LIVE</span></div>
+  <div class="host" id="host${id}">Loading…</div>
+  <a class="full" id="cur${id}" target="_blank" rel="noopener"></a>
+  <div class="acts"><a class="ghost" id="open${id}" target="_blank" rel="noopener">Open site ↗</a><button class="ghost" data-id="${id}">Copy share link</button></div>
+  <label class="l" for="url${id}">Change destination</label>
+  <div class="inwrap"><input id="url${id}" type="url" placeholder="https://…"><button class="btn go" id="save${id}">Save</button></div>
   <div class="chips" id="rec${id}"></div>`;
   $("sites").appendChild(s);
 });
@@ -129,56 +116,51 @@ IDS.forEach(id=>{
 if(!$("owner").value||!$("token").value)$("conn").open=true;
 $("eye").onclick=()=>{const p=$("token"),s=p.type==="password";p.type=s?"text":"password";$("eye").textContent=s?"Hide":"Show"};
 
-function showCur(id,u){const el=$("cur"+id);el.innerHTML="";const a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener";a.textContent=u;el.appendChild(a)}
-fetch("link.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(d=>IDS.forEach(i=>d[i]?showCur(i,d[i]):($("cur"+i).textContent="Not set"))).catch(()=>IDS.forEach(i=>$("cur"+i).textContent="Not set"));
+function showCur(id,u){
+  let h=u;try{h=new URL(u).hostname}catch(e){}
+  $("host"+id).textContent=h;
+  const a=$("cur"+id);a.textContent=u;a.href=u;$("open"+id).href=u;
+}
+function notSet(id){$("host"+id).textContent="Not set yet";$("cur"+id).textContent="";$("open"+id).removeAttribute("href")}
+fetch("link.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(d=>IDS.forEach(i=>d[i]?showCur(i,d[i]):notSet(i))).catch(()=>IDS.forEach(notSet));
 
 const recents=id=>{try{return JSON.parse(S.get("lm_rec"+id)||"[]")}catch(e){return[]}};
 function drawRec(id){const box=$("rec"+id);box.innerHTML="";recents(id).forEach(u=>{const b=document.createElement("button");b.className="chip";b.textContent=u.replace(/^https?:\/\//,"");b.title=u;b.onclick=()=>$("url"+id).value=u;box.appendChild(b)})}
 IDS.forEach(drawRec);
 
-document.querySelectorAll(".copy").forEach(b=>b.onclick=async()=>{
-  const v=$("share"+b.dataset.id).value;
-  try{await navigator.clipboard.writeText(v)}catch(e){$("share"+b.dataset.id).select();document.execCommand("copy")}
-  b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy",1500);
+document.querySelectorAll(".ghost[data-id]").forEach(b=>b.onclick=async()=>{
+  const link=base+"site"+b.dataset.id+".html";
+  try{await navigator.clipboard.writeText(link)}catch(e){const t=document.createElement("input");t.value=link;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}
+  toast("✓ Link copied","ok");
 });
 
-document.querySelectorAll(".save").forEach(btn=>btn.onclick=async()=>{
-  const id=btn.dataset.id,url=$("url"+id).value.trim();
-  const owner=$("owner").value.trim(),repo=$("repo").value.trim(),token=$("token").value.trim();
-  if(!owner||!repo||!token){$("conn").open=true;return toast("Fill in the GitHub connection first","err")}
-  if(!/^https?:\/\/.+\..+/i.test(url))return toast("Enter a valid link starting with http(s)://","err");
-  if($("remember").checked)["owner","repo","token"].forEach(k=>S.set("lm_"+k,$(k).value.trim()));
-  else["owner","repo","token"].forEach(k=>S.del("lm_"+k));
-
-  const api=`https://api.github.com/repos/${owner}/${repo}/contents/link.json`;
-  const headers={Authorization:"Bearer "+token,Accept:"application/vnd.github+json"};
-  btn.disabled=true;btn.textContent="Saving…";
-  try{
-    let sha,data={};
-    const g=await fetch(api,{headers});
-    if(g.ok){const j=await g.json();sha=j.sha;try{data=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,"")))))}catch(e){}}
-    else if(g.status!==404)throw new Error(g.status===401?"Invalid token":"Repo not found or no access ("+g.status+")");
-    data[id]=url; // only this website changes, the other stays as is
-    const content=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    const p=await fetch(api,{method:"PUT",headers,body:JSON.stringify({message:"Update website "+id+" link",content,sha})});
-    if(!p.ok)throw new Error("Save failed ("+p.status+"). Check token permissions.");
-    showCur(id,url);
-    S.set("lm_rec"+id,JSON.stringify([url,...recents(id).filter(x=>x!==url)].slice(0,4)));drawRec(id);
-    $("url"+id).value="";
-    toast("✓ Website "+id+" saved! Live in 1–2 minutes","ok");
-  }catch(e){toast(e.message,"err")}
-  btn.disabled=false;btn.textContent="Save Website "+id;
+IDS.forEach(id=>{
+  $("url"+id).addEventListener("keydown",e=>{if(e.key==="Enter")$("save"+id).click()});
+  $("save"+id).onclick=async()=>{
+    const btn=$("save"+id),url=$("url"+id).value.trim();
+    const owner=$("owner").value.trim(),repo=$("repo").value.trim(),token=$("token").value.trim();
+    if(!owner||!repo||!token){$("conn").open=true;return toast("Fill in the GitHub connection first","err")}
+    if(!/^https?:\/\/.+\..+/i.test(url))return toast("Enter a valid link starting with http(s)://","err");
+    if($("remember").checked)["owner","repo","token"].forEach(k=>S.set("lm_"+k,$(k).value.trim()));
+    else["owner","repo","token"].forEach(k=>S.del("lm_"+k));
+    const api=`https://api.github.com/repos/${owner}/${repo}/contents/link.json`;
+    const headers={Authorization:"Bearer "+token,Accept:"application/vnd.github+json"};
+    btn.disabled=true;btn.textContent="Saving…";
+    try{
+      let sha,data={};
+      const g=await fetch(api,{headers});
+      if(g.ok){const j=await g.json();sha=j.sha;try{data=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,"")))))}catch(e){}}
+      else if(g.status!==404)throw new Error(g.status===401?"Invalid token":"Repo not found or no access ("+g.status+")");
+      data[id]=url;
+      const content=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const p=await fetch(api,{method:"PUT",headers,body:JSON.stringify({message:"Update website "+id+" link",content,sha})});
+      if(!p.ok)throw new Error("Save failed ("+p.status+"). Check token permissions.");
+      showCur(id,url);
+      S.set("lm_rec"+id,JSON.stringify([url,...recents(id).filter(x=>x!==url)].slice(0,4)));drawRec(id);
+      $("url"+id).value="";
+      toast("✓ Website "+id+" saved! Live in 1–2 minutes","ok");
+    }catch(e){toast(e.message,"err")}
+    btn.disabled=false;btn.textContent="Save";
+  };
 });
-
-// ---- share all links ----
-const allMsg=()=>"Here are the links:\n\n"+IDS.map(i=>"Website "+i+": "+base+"site"+i+".html").join("\n");
-$("allmsg").value=allMsg();
-const msgEnc=()=>encodeURIComponent(allMsg());
-$("wa").onclick=()=>window.open("https://wa.me/?text="+msgEnc(),"_blank");
-$("sms").onclick=()=>{location.href="sms:?&body="+msgEnc()};
-$("mail").onclick=()=>{location.href="mailto:?subject="+encodeURIComponent("Our links")+"&body="+msgEnc()};
-$("cpall").onclick=async()=>{try{await navigator.clipboard.writeText(allMsg())}catch(e){$("allmsg").select();document.execCommand("copy")}toast("✓ All links copied","ok")};
-$("nat").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"Our links",text:allMsg()})}catch(e){}}else toast("Sharing not supported here, use the buttons","err")};
-</script>
-</body>
-</html>
+</script></body></html>
