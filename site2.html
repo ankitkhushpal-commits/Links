@@ -1,63 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Opening your link…</title>
+<meta name="theme-color" content="#0a0d1c">
+<title>Opening…</title>
 <style>
-:root{--bg1:#4f46e5;--bg2:#06b6d4}
+:root{--bg:#0a0d1c;--t:#f4f6ff;--m:#9aa3c7;--line:rgba(255,255,255,.13);--g1:#7c5cff;--g2:#22d3ee;--g3:#f472b6;--ok:#34d399;--err:#fb7185}
 *{box-sizing:border-box}
-html,body{margin:0}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;
- background:linear-gradient(135deg,var(--bg1),var(--bg2));background-size:200% 200%;animation:flow 12s ease infinite;
- display:flex;align-items:center;justify-content:center;padding:max(1.2rem,env(safe-area-inset-top)) max(1.2rem,env(safe-area-inset-right)) max(1.2rem,env(safe-area-inset-bottom)) max(1.2rem,env(safe-area-inset-left))}
-@keyframes flow{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
-.card{width:100%;max-width:400px;text-align:center;padding:2.4rem 1.8rem;border-radius:24px;background:rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);box-shadow:0 20px 60px rgba(0,0,0,.25)}
-.spinner{width:64px;height:64px;margin:0 auto 1.4rem;border-radius:50%;border:5px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.icon{font-size:3rem;margin-bottom:1rem;display:none}
-h1{font-size:1.5rem;margin:0 0 .5rem}
-p{margin:.3rem 0;opacity:.9;line-height:1.5}
-.dest{display:inline-block;margin-top:.8rem;padding:.35rem .8rem;border-radius:999px;background:rgba(0,0,0,.2);font-size:.9rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.btn{display:none;margin-top:1.4rem;padding:.8rem 1.6rem;border-radius:12px;background:#fff;color:#4338ca;font-weight:700;text-decoration:none}
-
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{min-height:100vh;min-height:100dvh;overflow-x:hidden}
-h1,p,.t,.h,.dest{overflow-wrap:anywhere}
-@media(max-width:360px){.card{padding:1.8rem 1.2rem}}
-@media(min-width:900px){h1{font-size:2rem}}
-@media(max-height:480px){body{align-items:flex-start}.card{padding:1.2rem}.spinner{width:42px;height:42px;margin-bottom:.8rem}}
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--t);overflow-x:hidden;
+ font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;
+ padding:max(1.2rem,env(safe-area-inset-top)) max(1.2rem,env(safe-area-inset-right)) max(1.2rem,env(safe-area-inset-bottom)) max(1.2rem,env(safe-area-inset-left))}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(circle at 50% 0,#151a3a,var(--bg) 60%)}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.42;animation:drift 20s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:var(--g1);top:-20vmax;left:-15vmax}
+.bg i:nth-child(2){background:var(--g2);bottom:-25vmax;right:-15vmax;animation-delay:-7s}
+.bg i:nth-child(3){background:var(--g3);top:30%;left:45%;width:35vmax;height:35vmax;opacity:.22;animation-delay:-13s}
+@keyframes drift{to{transform:translate(6vmax,-5vmax) scale(1.15)}}
+.glass{background:rgba(255,255,255,.06);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.gt{background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,p,.pill,.host,.full{overflow-wrap:anywhere}
+.num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;font-weight:800;font-size:1.2rem;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 24px rgba(124,92,255,.45)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:46px;padding:.7rem 1.4rem;border-radius:14px;font-weight:700;color:#fff;text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-size:1rem;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 10px 30px rgba(124,92,255,.4);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
-</head>
-<body>
-<main class="card">
-  <div class="spinner" id="spin"></div>
-  <div class="icon" id="icon">😕</div>
-  <h1 id="title">Opening your link…</h1>
-  <p id="sub">Please wait a moment.</p>
-  <span class="dest" id="dest" style="display:none"></span><br>
-  <a class="btn" id="btn" href="#">Open link now</a>
+
+body{display:flex;align-items:center;justify-content:center}
+.box{width:100%;max-width:420px;text-align:center;padding:2.4rem 1.8rem}
+.ring{width:84px;height:84px;margin:0 auto 1.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;
+ background:linear-gradient(#12162f,#12162f) padding-box,conic-gradient(from 0deg,var(--g1),var(--g2),var(--g3),var(--g1)) border-box;border:4px solid transparent;animation:spin 3s linear infinite}
+.ring span{animation:spin 3s linear infinite reverse;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{margin:0 0 .4rem;font-size:clamp(1.4rem,5vw,1.8rem)}
+p{margin:0;color:var(--m)}
+.pill{display:inline-block;max-width:100%;margin:1rem 0 1.2rem;padding:.4rem .9rem;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid var(--line);font-size:.92rem;font-weight:600}
+.bar{height:6px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:1.4rem}
+.bar b{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3));transition:width 1.2s ease}
+.btn{display:none}
+</style></head><body>
+<div class="bg"><i></i><i></i><i></i></div>
+<main class="glass box">
+  <div class="ring"><span id="icon">2</span></div>
+  <h1 id="title">Opening your link</h1>
+  <p id="sub">Just a moment…</p>
+  <div class="pill" id="dest" style="display:none"></div>
+  <div class="bar"><b id="bar"></b></div>
+  <a class="btn" id="btn" href="#">Open now ↗</a>
 </main>
 <script>
-const ID = "2";
-const $=id=>document.getElementById(id);
-fetch("link.json?t="+Date.now(),{cache:"no-store"})
- .then(r=>{if(!r.ok)throw 0;return r.json()})
- .then(d=>{
-   const u=new URL(d[ID]);
-   if(!/^https?:$/.test(u.protocol))throw 0;
-   $("dest").textContent=u.hostname;$("dest").style.display="inline-block";
-   $("sub").textContent="Taking you to:";
-   $("btn").href=u.href;
-   setTimeout(()=>{$("btn").style.display="inline-block";$("sub").textContent="Not redirected yet? Tap below."},3500);
-   setTimeout(()=>location.replace(u.href),600);
- })
- .catch(()=>{
-   $("spin").style.display="none";$("icon").style.display="block";
-   $("title").textContent="No link set yet";
-   $("sub").textContent="Please check back soon.";
- });
-</script>
-</body>
-</html>
+const ID="2",$=id=>document.getElementById(id);
+fetch("link.json?t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+  const u=new URL(d[ID]);if(!/^https?:$/.test(u.protocol))throw 0;
+  $("dest").textContent=u.hostname;$("dest").style.display="inline-block";
+  $("sub").textContent="Taking you to";$("btn").href=u.href;$("btn").style.display="inline-flex";
+  setTimeout(()=>$("bar").style.width="100%",60);
+  setTimeout(()=>location.replace(u.href),1300);
+}).catch(()=>{
+  $("icon").textContent="!";$("title").textContent="No link set yet";$("sub").textContent="Please check back soon.";
+});
+</script></body></html>
